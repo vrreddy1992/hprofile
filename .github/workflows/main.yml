@@ -6,7 +6,7 @@ env:
   ECR_REPOSITORY: actapp
   ECS_SERVICE: vproapp-act-svc
   ECS_CLUSTER: vproapp-act
-  ECS_TASK_DEFINITION: aws-files/task-definition.json
+  ECS_TASK_DEFINITION: aws-files/taskdeffile.json
   ECS_CONTAINER_NAME: vproapp
 
 jobs:
@@ -104,7 +104,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: aws-files/task-definition.json
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.ECS_CONTAINER_NAME }}
           image: ${{ secrets.REGISTRY }}/${{env.ECR_REPOSITORY}}:${{ github.run_number }}
 
