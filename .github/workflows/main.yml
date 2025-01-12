@@ -1,5 +1,5 @@
 name: Hprofile Actions
-on: [push,workflow_dispatch]
+on: [push, workflow_dispatch]
 
 env:
   AWS_REGION: us-east-1
@@ -52,6 +52,16 @@ jobs:
     steps:
       - name: Code checkout
         uses: actions/checkout@v4
+
+      - name: Validate Task Definition File
+        run: |
+          echo "Validating task definition file exists..."
+          if [ ! -f ${{ env.ECS_TASK_DEFINITION }} ]; then
+            echo "Error: Task definition file '${{ env.ECS_TASK_DEFINITION }}' does not exist."
+            exit 1
+          else
+            echo "Task definition file '${{ env.ECS_TASK_DEFINITION }}' found."
+          fi
 
       - name: Update application.properties file
         run: |
