@@ -7,7 +7,7 @@ env:
   ECS_SERVICE: vproapp-act-svc
   ECS_CLUSTER: vproapp-act
   ECS_TASK_DEFINITION: aws-files/task-definition.json
-  ECS_CONTAINER_NAME: actapp
+  ECS_CONTAINER_NAME: vproapp
 
 jobs:
   Testing:
@@ -78,7 +78,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.ECS_CONTAINER_NAME }}
-          image: ${{ secrets.REGISTRY }}/actapp:${{ github.run_number }}
+          image: ${{ secrets.REGISTRY }}/${{env.ECR_REPOSITORY}}:${{ github.run_number }}
 
   Deploy:
     needs: BUILD_AND_PUBLISH
